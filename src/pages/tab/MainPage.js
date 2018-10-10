@@ -9,17 +9,17 @@ import Util from 'ygzycomponent/tools/Util';
 import mainStyle from '../../styles/tab/mainStyle';
 class MainPage extends Component {
     static navigationOptions=({
-        headerTitle:(
-            <View style={{flex:1,backgroundColor:'#fff',justifyContent:'center',alignItems:'center'}}>
+        /*headerTitle:(
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text style={{fontSize:18,color:'#333'}}>首页</Text>
             </View>
-        ),
-        /*headerLeft:(<TouchableHighlight onPress={()=>{alert('左边按钮')}}>
+        ),*/
+        headerLeft:(<TouchableHighlight onPress={()=>{alert('左边按钮')}}>
             <Text>按钮</Text>
         </TouchableHighlight>),
         headerRight:(<TouchableHighlight onPress={()=>{alert('右边按钮')}}>
             <Text>右按钮</Text>
-        </TouchableHighlight>)*/
+        </TouchableHighlight>)
     });
     constructor(props) {
         super(props);

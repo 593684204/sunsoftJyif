@@ -5,6 +5,9 @@
 import React from 'react';
 import {
     Image,
+    View,
+    Text,
+    TouchableHighlight,
     StyleSheet
 } from 'react-native';
 import {
@@ -47,6 +50,11 @@ const TabRouteConfigs = {
         screen: MainPage,
         navigationOptions: ({navigation})=>({
             title: '',
+            headerTitle:(
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{fontSize:18,color:'#333'}}>首页</Text>
+                </View>
+            ),
             tabBarIcon: ({focused, tintColor})=>(
                 <Image source={focused ? indexPressedIcon : indexNormalIcon} style={styles.tabIcon} resizeMode='contain'/>
             ),
