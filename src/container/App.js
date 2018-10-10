@@ -10,7 +10,7 @@ const RNBridgeModule = NativeModules.RNBridgeModule;
 
 class App extends Component {
     componentDidMount() {
-       this.hideSplash();
+      // this.hideSplash();
     }
     render() {
         return (

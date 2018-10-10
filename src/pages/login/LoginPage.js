@@ -277,10 +277,10 @@ class LoginPage extends Component {
                         }
                     }/>*/
                 }
-                <Button text='我不是背景图按钮'
+                {/*<Button text='我不是背景图按钮'
                 style={{alignItems: 'center',justifyContent: 'center',height: Util.getSize(80, 1334, 'h'),backgroundColor:'red'}}
                 fontStyle={{color:'#5e5a57',fontSize:9}}
-                source={require('../../resources/images/common/btn.png')} />
+                source={require('../../resources/images/common/btn.png')} />*/}
             </View>
         );
     }
