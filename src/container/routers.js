@@ -8,7 +8,8 @@ import {
     View,
     Text,
     TouchableHighlight,
-    StyleSheet
+    StyleSheet,
+    Platform
 } from 'react-native';
 import { createStackNavigator,createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator, BottomTabBar } from 'react-navigation-tabs';
@@ -149,9 +150,9 @@ const TabNavigatorConfigs ={
         indicatorStyle: {
             height: 0
         }, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了， 不知道还有没有其它方法隐藏？？？
-        style: {
-            backgroundColor: '#FFFFFF', // TabBar 背景色
-            height:Util.getSize(110,1334,'h'),
+        tabStyle: {
+            backgroundColor: 'blue', // TabBar 背景色
+            height:Platform.OS==='ios'?Util.getSize(120,1334,'h'):Util.getSize(110,1334,'h'),
             width:Util.size.width
         },
         labelStyle: {
