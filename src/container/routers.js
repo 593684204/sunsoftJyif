@@ -10,14 +10,9 @@ import {
     TouchableHighlight,
     StyleSheet
 } from 'react-native';
-import {
-    StackNavigator,
-    TabNavigator,
-    TabBarBottom,
-    NavigationActions,
-    createStackNavigator
-} from 'react-navigation';
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import { createStackNavigator,createSwitchNavigator } from 'react-navigation';
+import { createBottomTabNavigator, BottomTabBar } from 'react-navigation-tabs';
+import StackViewStyleInterpolator from "react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator";
 
 import Util from 'ygzycomponent/tools/Util';
 
@@ -45,7 +40,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const TabRouteConfigs = {
+const MainStack =createStackNavigator({
     MainPage: {
         screen: MainPage,
         navigationOptions: ({navigation})=>({
@@ -54,14 +49,62 @@ const TabRouteConfigs = {
                 <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                     <Text style={{fontSize:18,color:'#333'}}>首页</Text>
                 </View>
-            ),
+            )
+        }),
+    }
+});
+const TwoStack =createStackNavigator({
+    Two: {
+        screen: Two,
+        navigationOptions: ({navigation})=>({
+            title: '',
+            headerTitle:(
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{fontSize:18,color:'#333'}}>Two</Text>
+                </View>
+            )
+        }),
+    }
+});
+const ThreeStack =createStackNavigator({
+    Three: {
+        screen: Three,
+        navigationOptions: ({navigation})=>({
+            title: '',
+            headerTitle:(
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{fontSize:18,color:'#333'}}>Three</Text>
+                </View>
+            )
+        }),
+    }
+});
+const FourStack =createStackNavigator({
+    Four: {
+        screen: Four,
+        navigationOptions: ({navigation})=>({
+            title: '',
+            headerTitle:(
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{fontSize:18,color:'#333'}}>Four</Text>
+                </View>
+            )
+        }),
+    }
+});
+
+const TabRouteConfigs = {
+    MainPage: {
+        screen: MainStack,
+        navigationOptions: ({navigation})=>({
+            title:'',
             tabBarIcon: ({focused, tintColor})=>(
                 <Image source={focused ? indexPressedIcon : indexNormalIcon} style={styles.tabIcon} resizeMode='contain'/>
             ),
         }),
     },
     Two:{
-        screen:Two,
+        screen:TwoStack,
         navigationOptions:({navigation})=>({
            title:'',
            tabBarIcon: ({focused, tintColor})=>(
@@ -70,7 +113,7 @@ const TabRouteConfigs = {
         }),
     },
     Three:{
-        screen:Three,
+        screen:ThreeStack,
         navigationOptions:({navigation})=>({
             title:'',
             tabBarIcon: ({focused, tintColor})=>(
@@ -79,7 +122,7 @@ const TabRouteConfigs = {
         }),
     },
     Four:{
-        screen:Four,
+        screen:FourStack,
         navigationOptions:({navigation})=>({
             title:'',
             tabBarIcon: ({focused, tintColor})=>(
@@ -89,9 +132,14 @@ const TabRouteConfigs = {
     },
 };
 
+const TabBarComponent = (props) => (<BottomTabBar {...props} />);
 const TabNavigatorConfigs ={
     initialRouteName: 'MainPage',
-    tabBarComponent: TabBarBottom,
+    tabBarComponent: props =>
+        <TabBarComponent
+            {...props}
+            style={{ backgroundColor:'#000' }}
+        />,
     tabBarPosition: 'bottom',
     lazy: true,
     swipeEnabled:false,
@@ -108,12 +156,14 @@ const TabNavigatorConfigs ={
         },
         labelStyle: {
             fontSize: 11, // 文字大小
-        },
+        }
     }
 };
-
-const TabBarNavigator = TabNavigator(TabRouteConfigs, TabNavigatorConfigs);
-
+const TabBarNavigator = createBottomTabNavigator(TabRouteConfigs, TabNavigatorConfigs);
+TabBarNavigator.navigationOptions = {
+    // Hide the header from AppNavigator stack
+    header: null,
+};
 const StackRouteConfigs ={
     /*Splash: {
         screen: Splash,
@@ -127,26 +177,19 @@ const StackRouteConfigs ={
             title:''
         })
     },
-    /*ServiceSchoolList: {
-        screen: ServiceSchoolList,
-        navigationOptions:({navigation})=>({
-            title:''
-        })
-    },*/
     Index: {
-        screen: TabBarNavigator
+        screen: TabBarNavigator,
     }
 };
-
 const StackNavigatorConfigs = {
     initialRouteName: 'LoginPage', // 初始化哪个界面为根界面
     mode:'card', // 跳转方式：默认的card，在iOS上是从右到左跳转，在Android上是从下到上，都是使用原生系统的默认跳转方式。
     headerMode:'screen', // 导航条动画效果：float表示会渐变，类似于iOS的原生效果，screen表示没有渐变。none表示隐藏导航条
     transitionConfig:()=>({
-        screenInterpolator:CardStackStyleInterpolator.forHorizontal,// forHorizontal 从右向左, forVertical 从下向上, forFadeFromBottomAndroid 安卓那种的从下向上  forInitial 无动画
+        screenInterpolator:StackViewStyleInterpolator.forHorizontal,// forHorizontal 从右向左, forVertical 从下向上, forFadeFromBottomAndroid 安卓那种的从下向上  forInitial 无动画
     }),
 };
-const AppNavigator = StackNavigator(StackRouteConfigs, StackNavigatorConfigs);
+const AppNavigator = createStackNavigator(StackRouteConfigs, StackNavigatorConfigs);
 export {
     AppNavigator
 };

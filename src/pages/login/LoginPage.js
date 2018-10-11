@@ -7,11 +7,9 @@ import {
     ScrollView,
     TextInput,
     TouchableHighlight,
-    NativeModules,
 } from 'react-native';
-dgeModule=NativeModules.RNBridgeModule;
 import {connect} from 'react-redux'; // 引入connect函数
-import {NavigationActions} from 'react-navigation';
+import { StackActions, NavigationActions } from 'react-navigation';
 import *as loginAction from '../../actions/loginAction';// 导入action方法
 import Util from 'ygzycomponent/tools/Util';
 import service from '../../common/service';
@@ -28,14 +26,14 @@ import alert from '../../components/common/Alert';
 import LoadIng from '../../components/common/Loading';
 import Button from '../../components/common/Button';*/
 import Button from 'ygzycomponent/components/Button';
-
-const RNBridgeModule = NativeModules.RNBridgeModule;
-const resetAction = NavigationActions.reset({
+const resetAction = StackActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({routeName: 'Index'})
+        NavigationActions.navigate({routeName: 'Index',params:{
+            titleName:'首页'
+        }})
     ]
-})
+});
 
 class LoginPage extends Component {
     static navigationOptions=({
@@ -59,7 +57,8 @@ class LoginPage extends Component {
         if (nextProps.status === '登陆成功' && nextProps.isSuccess) {
             let msgCode = parseInt(nextProps.user.msgCode);
             if (msgCode_Zero === msgCode) { //保存用户信息，并进入首页
-                this.props.navigation.dispatch(resetAction);
+                this.props.navigation.dispatch(resetAction);//使用routers.js使用createStackNavigator
+                this.props.navigation.navigate('Index'); //使用routers.js使用createSwitchNavigator
                 return false;
             } else if (msgCode_One === msgCode) {  //请求失败
                 //ToastAndroid.show(nextProps.user.obj.title, ToastAndroid.SHORT);

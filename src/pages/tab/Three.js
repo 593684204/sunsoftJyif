@@ -16,7 +16,7 @@ export default class Main extends Component {
     }
 
     componentDidMount() {
-        JPushModule.addTags(['xxxxxxxx'], success => {
+        /*JPushModule.addTags(['xxxxxxxx'], success => {
             alert('1');
         });
         // 新版本必需写回调函数
@@ -38,12 +38,12 @@ export default class Main extends Component {
             console.log("map.extra: " + map.extras);
             // 可执行跳转操作，也可跳转原生页面
             this.props.navigation.navigate("ServiceSchoolList",{token:'我就是测试来的'});
-        });
+        });*/
     };
 
     componentWillUnmount() {
-        JPushModule.removeReceiveCustomMsgListener();
-        JPushModule.removeReceiveNotificationListener();
+        /*JPushModule.removeReceiveCustomMsgListener();
+        JPushModule.removeReceiveNotificationListener();*/
     };
 
     render() {
