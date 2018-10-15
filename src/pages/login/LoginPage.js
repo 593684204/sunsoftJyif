@@ -7,9 +7,10 @@ import {
     ScrollView,
     TextInput,
     TouchableHighlight,
+    BackHandler
 } from 'react-native';
 import {connect} from 'react-redux'; // 引入connect函数
-import { StackActions, NavigationActions } from 'react-navigation';
+import { StackActions, NavigationActions,SafeAreaView  } from 'react-navigation';
 import *as loginAction from '../../actions/loginAction';// 导入action方法
 import Util from 'ygzycomponent/tools/Util';
 import service from '../../common/service';
@@ -30,19 +31,17 @@ const resetAction = StackActions.reset({
     index: 0,
     actions: [
         NavigationActions.navigate({routeName: 'Index',params:{
-            titleName:'首页'
-        }})
+                titleName:'首页'
+            },action:NavigationActions.navigate({routeName:'MainPage',params:{
+                titleName:'首页1'
+            }})}),
+
     ]
 });
 
 class LoginPage extends Component {
-    static navigationOptions=({
-        headerTitle:(
-            <View style={{flex:1,backgroundColor:'#fff',justifyContent:'center',alignItems:'center'}}>
-                <Text style={{fontSize:18,color:'#333'}}>登 录</Text>
-            </View>
-        )
-    });
+    _didFocusSubscription;
+    _willBlurSubscription;
 
     shouldComponentUpdate(nextProps, nextState) {
         // 登录完成,切成功登录
@@ -58,7 +57,7 @@ class LoginPage extends Component {
             let msgCode = parseInt(nextProps.user.msgCode);
             if (msgCode_Zero === msgCode) { //保存用户信息，并进入首页
                 this.props.navigation.dispatch(resetAction);//使用routers.js使用createStackNavigator
-                this.props.navigation.navigate('Index'); //使用routers.js使用createSwitchNavigator
+               // this.props.navigation.navigate('Index'); //使用routers.js使用createSwitchNavigator
                 return false;
             } else if (msgCode_One === msgCode) {  //请求失败
                 //ToastAndroid.show(nextProps.user.obj.title, ToastAndroid.SHORT);
@@ -98,22 +97,29 @@ class LoginPage extends Component {
         this.validateCode = '';
         this.uuid = '';
         this.isShowCode = false;
+        this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+            BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+        );
     }
 
     componentDidMount() {
-        /*RNBridgeModule.getUUID((uuid) => {
-            console.log('uuid:' + uuid);
-            this.uuid = uuid;
-        });*/
+        // this.hideSplash();
+        this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+        );
+    }
+    onBackButtonPressAndroid = () => {
+        alert(1);
+        return true;
     };
-
     componentWillUnmount() {
-
-    };
+        this._didFocusSubscription && this._didFocusSubscription.remove();
+        this._willBlurSubscription && this._willBlurSubscription.remove();
+    }
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView  style={styles.container}>
                 <View style={{flex: 1209}}>
                     <ScrollView keyboardShouldPersistTaps="handled" style={{flex: 1}}>
                         <View style={styles.header}>
@@ -280,7 +286,7 @@ class LoginPage extends Component {
                 style={{alignItems: 'center',justifyContent: 'center',height: Util.getSize(80, 1334, 'h'),backgroundColor:'red'}}
                 fontStyle={{color:'#5e5a57',fontSize:9}}
                 source={require('../../resources/images/common/btn.png')} />*/}
-            </View>
+            </SafeAreaView >
         );
     }
 

@@ -24,6 +24,7 @@ import Two from '../pages/tab/Two';
 import Three from '../pages/tab/Three';
 import Four from '../pages/tab/Four';
 import LoginPage from '../pages/login/LoginPage';
+import Detail from '../pages/test/detail';
 //import ServiceSchoolList from '../pages/serviceSchool/ServiceSchoolList';//服务中学校列表
 const indexNormalIcon = require('../resources/images/common/index_normal.png');
 const indexPressedIcon=require('../resources/images/common/index_pressed.png');
@@ -166,21 +167,30 @@ TabBarNavigator.navigationOptions = {
     header: null,
 };
 const StackRouteConfigs ={
-    /*Splash: {
-        screen: Splash,
-        navigationOptions: {
-            header: null
-        }
-    },----闪屏页*/
     LoginPage: {
         screen: LoginPage,
         navigationOptions:({navigation})=>({
-            title:''
+            headerTitle:(
+                <View style={{flex:1,backgroundColor:'#fff',justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{fontSize:18,color:'#333'}}>登 录</Text>
+                </View>
+            )
         })
     },
     Index: {
         screen: TabBarNavigator,
-    }
+    },
+    Detail: {
+        screen: Detail,
+        navigationOptions: ({navigation})=>({
+            title: '',
+            headerTitle:(
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{fontSize:18,color:'#333'}}>首页Detail</Text>
+                </View>
+            )
+        }),
+    },
 };
 const StackNavigatorConfigs = {
     initialRouteName: 'LoginPage', // 初始化哪个界面为根界面

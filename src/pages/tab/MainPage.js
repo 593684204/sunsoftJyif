@@ -23,8 +23,11 @@ class MainPage extends Component {
     });
     constructor(props) {
         super(props);
+        let titleName='';//this.props.navigation.state.params;
+        alert(this.props.navigation.state.params.titleName);
+        console.log(this.props.navigation.state.params);
+        //console.log(this.props.navigation);
     }
-
     componentDidMount() {
     };
 
@@ -42,7 +45,7 @@ class MainPage extends Component {
                     <View style={{flex:73}}/>
                     <View style={{flex:204,flexDirection:'row'}}>
                         <View style={{flex:41}}/>
-                        <TouchableHighlight underlayColor={'rgba(0,0,0,0)'} onPress={()=>{}} style={{flex:220}}>
+                        <TouchableHighlight underlayColor={'rgba(0,0,0,0)'} onPress={()=>this.props.navigation.navigate('Detail',{title:'123',callback:this.callback})} style={{flex:220}}>
                             <View style={mainStyle.itemRLContainer}>
                                 <View style={mainStyle.item_image_container}>
                                     <Image style={mainStyle.item_image} source={require('../../resources/images/main/serviceSchoolIcon.png')} resizeMode='contain' />
