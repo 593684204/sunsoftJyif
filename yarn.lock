@@ -4385,7 +4385,7 @@ react-native-screens@^1.0.0-alpha.11:
   version "1.0.0-alpha.14"
   resolved "https://registry.npmjs.org/react-native-screens/-/react-native-screens-1.0.0-alpha.14.tgz#fe3ccdcec7be8e1ada090c34a7f8951337adf653"
 
-react-native-splash-screen@^3.0.6:
+react-native-splash-screen@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/react-native-splash-screen/-/react-native-splash-screen-3.1.1.tgz#1a4e46c9fdce53ff52af2a2cb4181788c4e30b30"
 

@@ -5,6 +5,7 @@ import {
     View,
     Image,
 } from 'react-native';
+import { NavigationActions, StackActions } from "react-navigation";
 export default class Main extends Component {
     constructor(props) {
         super(props);
@@ -19,10 +20,14 @@ export default class Main extends Component {
 
     };
 
+    funcOnback=()=>{
+        //this.props.navigation.dispatch(resetAction);
+         this.props.navigation.goBack();
+    }
     render() {
         return (
             <View style={styles.container}>
-                <Text onPress={()=>this.props.navigation.state.goback()}>第二个Tab页</Text>
+                <Text onPress={()=>this.funcOnback()}>第二个Tab页</Text>
             </View>
         );
     }
